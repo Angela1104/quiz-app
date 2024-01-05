@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        height:100vh;
+        background-image: url("/static/images/home.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+
+      .text-bg-primary {
+        background-color: #005477 !important;
+      }
+  
+      .text-primary {
+        color: #005477 !important;
+      }
+    </style>
+
+    <section class=" h-100 py-5 px-5 text-center container-fluid">
+      <div class="row py-lg-5 d-flex flex-row justify-content-center">
+        <div
+          class="d-flex flex-column align-content-center justify-content-center col-md-5"
+        >
+          <h1 class="text-primary font-weight-bold" style="font-weight: bold">
+            Welcome to Genius Mind
+          </h1>
+          <p class="text-dark">
+            Genius Mind quizzes are more than just questions; they are invitations to explore the vast universe of knowledge. Answer with curiosity, and let your genius shine through.
+          </p>
+          <div class="d-flex flex-row justify-content-center gap-3">
+            <a
+              href="{% if user.is_authenticated %}
+            {% url 'quiz' %}
+            {% else %}
+              {% url 'login' %}
+            {% endif %}"
+              class="btn text-bg-primary my-2"
+              >Take Quiz</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

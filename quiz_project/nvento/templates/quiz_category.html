@@ -1,0 +1,56 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block title %}Quiz{% endblock %}
+{% block content %}
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-image: url("/static/images/quiz.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .text-bg-primary {
+    background-color: #005477 !important;
+  }
+
+  .text-primary {
+    color: #005477 !important;
+  }
+</style>
+
+<section id="quiz-content">
+  <div class="pt-0 text-center container py-5">
+    <h4 class="mt-4 mb-5"><strong>Quizzes</strong></h4>
+    <div class="row">
+      {% for quiz in objects.object_list %}
+      <div class="col-lg-4 col-md-12 mb-4">
+        <div class="card">
+          <div
+            class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+            data-mdb-ripple-color="light"
+          >
+            <img src="{% static quiz.thumbnailUrl %}" class="w-100" />
+          </div>
+          <div class="card-body">
+            <a href="{% url 'quiz' quiz.title %}" class="text-reset">
+              <h5 class="card-title mb-3">{{quiz.title}}</h5>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if objects.object_list and quiz_count > 3 %} 
+  {% include "pagination.html" %} 
+  {% endif %}
+</section>
+
+{% endblock %}

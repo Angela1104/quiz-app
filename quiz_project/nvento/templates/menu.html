@@ -1,0 +1,65 @@
+<nav class="container-fluid text-bg-primary sticky-top" style="background-color: #005477 !important;">
+  <div
+    class="d-flex flex-row align-items-center justify-content-between py-3 px-4"
+  >
+    <div class="nav d.flex flex-row align-items-center gap-lg-5">
+      <h4><a class="navbar-brand">Genius Mind</a></h4>
+      <ul class="nav d.flex flex-row align-items-center">
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            aria-current="page"
+            href="{% url 'home' %}"
+            >Home</a
+          >
+        </li>
+        <li class="nav-item dropdown show">
+          <a
+            class="nav-link text-white dropdown-toggle "
+            role="button"
+            id="dropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Top Scorer
+          </a>
+          <div class="dropdown-menu"aria-labelledby="dropdownMenuButton"style="max-height: 300px; overflow-y: auto">
+            <a class="dropdown-item"href="{% url 'top_scorer' category='General Knowledge' %}">General Knowledge</a>
+            <a class="dropdown-item"href="{% url 'top_scorer' category='Environment' %}">Environment</a>
+            <a class="dropdown-item" href="{% url 'top_scorer' category='Animal' %}">Animal</a>
+            <a class="dropdown-item" href="{% url 'top_scorer' category='Geography' %}">Geography</a>
+            <a class="dropdown-item" href="{% url 'top_scorer' category='Science' %}">Science</a>
+            <a class="dropdown-item" href="{% url 'top_scorer' category='Mathematics' %}">Mathematics</a>
+            <a class="dropdown-item" href="{% url 'top_scorer' category='Philippine History' %}">Philippine History</a>
+            <a class="dropdown-item" href="{% url 'top_scorer' category='Technology and Innovation' %}">Technology and Innovation</a>
+            <a class="dropdown-item" href="{% url 'top_scorer' category='Computer Hardware' %}">Computer Hardware</a>
+            <a class="dropdown-item" href="{% url 'top_scorer' category='Programming Language' %}">Programming Language</a>
+        </li>
+      </ul>
+    </div>
+    <div class="d-flex flex-row gap-3">
+      <ul class="nav d.flex flex-row align-items-center">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            aria-current="page"
+            href="
+            {% if user.is_authenticated %}
+              {% url 'profile' %}
+            {% else %}
+              {% url 'login' %}
+            {% endif %}"
+            >Profile</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% endif %}
+      </ul>
+      
+      
+  </div>
+</nav>

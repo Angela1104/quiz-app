@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}My Scores{% endblock %}
+
+
+{% block content %}
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    }
+
+    body {
+    height:100vh;
+    background-image: url("/static/images/home.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    }
+
+    .text-bg-primary {
+    background-color: #005477 !important;
+    }
+
+    .text-primary {
+    color: #005477 !important;
+    }
+  </style>
+    <section class="intro h-100 py-5 px-5 container-fluid">
+        <div class="gradient-custom-1 h-100">
+          <div class="mask d-flex align-items-center h-100">
+            <div class="container">
+              <div class="row justify-content-center">
+                <h3 class="text-center m-0 mb-4">My Scores in {{category}}</h3>
+                <div class="col-12 " style="max-height: 400px; overflow-y: auto;">
+                  <div class="table-responsive bg-white">
+                    <table class="table mb-0">
+                      <thead>
+                        <tr>
+                          <th class="text-bg-primary" scope="col">User</th>
+                          <th class="text-bg-primary" scope="col">College</th>
+                          <th class="text-bg-primary" scope="col">Program</th>
+                          <th class="text-bg-primary" scope="col">Score</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for details in scores %}
+                          <tr>
+                            <th scope="row" style="color: #666666;">{{details.user}}</th>
+                            <td>{{details.college}}</td>
+                            <td>{{details.program}}</td>
+                            <td>{{details.score}}</td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </section>
+      <script>
+        {% if disable_back %}
+            history.pushState(null, null, document.URL);
+            window.addEventListener('popstate', function () {
+                history.pushState(null, null, document.URL);
+            });
+        {% endif %}
+    </script>
+
+{% endblock %}

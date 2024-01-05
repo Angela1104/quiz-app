@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Top Score{% endblock %}
+
+{% block content %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background-image: url("/static/images/home.png");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .container {
+            margin: 30px auto;
+            background: white;
+            padding: 20px 15px;
+        }
+
+        label.box {
+            display: flex;
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+        
+        input[type="radio"]:checked~label.box {
+            border-color: #8e498e;
+        }
+        
+        input[type="radio"]:checked~label.box .circle {
+            border: 6px solid #8e498e;
+            background-color: #fff;
+        }
+        
+        label.box:hover {
+            background: #d5bbf7;
+        }
+        
+        label.box .course {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        label.box .circle {
+            height: 22px;
+            width: 22px;
+            border-radius: 50%;
+            margin-right: 15px;
+            border: 2px solid #ddd;
+            display: inline-block;
+        }
+        
+        input[type="radio"] {
+            display: none;
+        }        
+
+        .btn.btn-primary {
+            border-radius: 25px;
+            margin-top: 20px;
+        }
+
+        .text-bg-primary {
+            background-color: #005477 !important;
+        }
+
+        .text-primary {
+            color: #005477 !important;
+        }
+    </style>
+    <section class=" h-100 py-5 px-5 container-fluid">
+        <h4 class="mt-0 mb-3 text-center"><strong>{{category}} Quiz</strong></h4>
+        
+        <div class="container mb-5">
+            <form method="post" action="{% url 'quiz_score' category=category %}">
+                {% csrf_token %}
+                <div class="row">
+                    {{category}}
+                    {% for question in questions %}
+                        <div class="col-12">
+                            <p class="fw-bold">{{ forloop.counter }}. {{ question.text }}</p>
+                            <div class="row mb-5">
+                                {% for option in question.answer_set.all %}
+                                    <div class="col-md-6">
+                                        <input type="radio" name="question_{{ question.id }}" id="option_{{ option.id }}" value="{{ option.id }}">
+                                        <label for="option_{{ option.id }}" class="box fifth w-100">
+                                            <div class="course">
+                                                <span class="circle"></span>
+                                                <span class="subject">{{ option.text }}</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-12">
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary px-4 py-2 fw-bold mt-0">Submit</button>
+                    </div>
+                </div>
+            </form>
+
+    </section>
+{% endblock %}

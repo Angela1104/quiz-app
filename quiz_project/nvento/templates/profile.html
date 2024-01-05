@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+
+{% block content %}
+    <style>
+        * {
+        margin: 0;
+        padding: 0;
+        }
+
+        body {
+        height:100vh;
+        background-image: url("/static/images/home.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        }
+
+        .text-bg-primary {
+        background-color: #005477 !important;
+        }
+
+        .text-primary {
+        color: #005477 !important;
+        }
+    </style>
+        <section class=" h-100 py-5 px-5 container-fluid">
+            <div class=" col-xl-8 container-fluid">
+                <div class="card mb-4">
+                    <div class="card-header">Account Details</div>
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'save_profile_changes' %}">
+                          {% csrf_token %}
+                          <div class="mb-3">
+                            <label class="small mb-1" for="inputUsername">Name</label>
+                            {% if user.userprofile.name != "None" %}
+                            
+                            {% endif %}
+                            <input name="name" class="form-control" id="name" type="text" placeholder="Enter your name" value="{% if user.userprofile.name is not None %}{{user.userprofile.name}}{% endif %}">
+                          </div>
+                          <div class="mb-3">
+                            <label class="small mb-1" for="college">College</label>
+                            <input name="college" class="form-control" id="college" type="text" placeholder="Enter your college school" value="{% if user.userprofile.college is not None %}{{user.userprofile.college}}{% endif %}">
+                          </div>
+                          <div class="mb-3">
+                            <label class="small mb-1" for="program">Program</label>
+                            <input name="program" class="form-control" id="program" type="text" placeholder="Enter your program" value="{% if user.userprofile.program is not None %}{{user.userprofile.program}}{% endif %}">
+                          </div>
+                      <div class="mb-3">
+                        <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                        <input name="email" class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="{% if user.userprofile.email is not None %}{{user.userprofile.email}}{% endif %}">
+                    </div>
+                            <div class="mb-3">
+                              <label class="small mb-1" for="inputUsername">Username</label>
+                              <input name="username" class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="{% if user.username is not None %}{{user.username}}{% endif %}">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="small mb-1" for="pass"
+                                  >New Password</label
+                                >
+                                <input
+                                  name="pass"
+                                  class="form-control"
+                                  id="pass"
+                                  type="pass"
+                                  placeholder="Enter new password"
+                                />
+                              </div>
+                            <button class="btn text-bg-primary" type="submit">Save changes</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+{% endblock %}
